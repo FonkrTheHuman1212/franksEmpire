@@ -1,0 +1,3 @@
+FRANK'S EMPIRE — Standalone edition
+Extract the entire ZIP, then open index.html in Chrome, Safari or Firefox. Keep the images folder and JS/CSS files alongside it. No npm, Lovable credits, account or internet required. For a local server, run python3 -m http.server 8000 in this folder and open http://localhost:8000.
+All products, company history, employees, property listings and orders are fictional. Checkout does not collect payments. The 13 listings without dedicated saved images use labeled representative department imagery. The original Lovable catalog data and 78 image files are preserved. Edit data.js, app.js and style.css to customize.
