@@ -4,3 +4,5 @@ New: 3 shops, 18 original studio illustrations, refreshed panoramic category ban
 Demo checkout does not send or store form values. Never enter actual payment or personal information. All products and reviews are fictional.
 
 V9.1 photo update: six kitchenware product illustrations replaced with generated studio photography; kitchenware banner rebuilt. Travel and stationery retain V9 original illustrations.
+
+V12: image-led gallery and six sanctuary themes; endless recentered scrolling, feathered transitions, and wall-clock focus timer. Existing static hosting settings unchanged.
