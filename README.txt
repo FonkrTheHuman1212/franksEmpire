@@ -1,3 +1,4 @@
-FRANK'S EMPIRE — Standalone edition
-Extract the entire ZIP, then open index.html in Chrome, Safari or Firefox. Keep the images folder and JS/CSS files alongside it. No npm, Lovable credits, account or internet required. For a local server, run python3 -m http.server 8000 in this folder and open http://localhost:8000.
-All products, company history, employees, property listings and orders are fictional. Checkout does not collect payments. The 13 listings without dedicated saved images use labeled representative department imagery. The original Lovable catalog data and 78 image files are preserved. Edit data.js, app.js and style.css to customize.
+FRANK'S EMPIRE V8 — Material Studio
+Open index.html locally or deploy the contents of this folder as a static website.
+GitHub/Netlify: copy the contents (not the enclosing folder) into the repository root, commit and push. Publish directory: . ; no build command.
+New: People, Art Gallery, Material Lab. Scroll inside the gallery or use Surprise me. Gallery keeps a bounded number of rendered layers in memory. Material Lab has twelve interactive modes, GPU shaders with a canvas fallback, physics, color and speed controls, and snapshot export; drag to interact. Checkout uses fixed sample information, with no real payment fields or data collection. Reviews and people are fictional.
