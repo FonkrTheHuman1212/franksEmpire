@@ -1,19 +1,20 @@
 
-
-const galleryWorlds=[
-  {id:'spring-sakura',name:'Spring Sakura Stream',title:'Spring Sakura Stream',subtitle:'A blossom-lit river garden with a curved bridge and crystal water.',file:'images/gallery/spring-sakura-stream.webp'},
-  {id:'spring-sakura-bridge',name:'Spring Sakura Stream',title:'Spring Sakura Stream',subtitle:'A transitional painting that carries the blossom river into the next world.',file:'images/gallery/between-01.webp'},
-  {id:'summer-falls',name:'Summer Waterfall Garden',title:'Summer Waterfall Garden',subtitle:'Layered waterfalls and luminous terraces under warm early-summer light.',file:'images/gallery/summer-waterfall-garden.webp'},
-  {id:'summer-falls-bridge',name:'Summer Waterfall Garden',title:'Summer Waterfall Garden',subtitle:'A transitional painting that carries the terraces and falls into the next world.',file:'images/gallery/between-02.webp'},
-  {id:'summer-meadow',name:'Summer Meadow Brook',title:'Summer Meadow Brook',subtitle:'A sunlit meadow where a clear brook drifts through wildflowers and mossy stone.',file:'images/gallery/summer-meadow-brook.webp'},
-  {id:'summer-meadow-bridge',name:'Summer Meadow Brook',title:'Summer Meadow Brook',subtitle:'A transitional painting that carries the meadow brook into the next world.',file:'images/gallery/between-03.webp'},
-  {id:'autumn-maples',name:'Autumn Maple River',title:'Autumn Maple River',subtitle:'Golden-hour reflections glow beneath a red maple canopy.',file:'images/gallery/autumn-maple-river.webp'},
-  {id:'autumn-maples-bridge',name:'Autumn Maple River',title:'Autumn Maple River',subtitle:'A transitional painting that carries the amber river into the next world.',file:'images/gallery/between-04.webp'},
-  {id:'winter-cabin',name:'Winter Cabin Stream',title:'Winter Cabin Stream',subtitle:'Lantern light, snow, and a quiet cabin beside a flowing blue-hour stream.',file:'images/gallery/winter-cabin-stream.webp'},
-  {id:'winter-cabin-bridge',name:'Winter Cabin Stream',title:'Winter Cabin Stream',subtitle:'A transitional painting that carries the snowy river into the next world.',file:'images/gallery/between-05.webp'},
-  {id:'moonlit-lotus',name:'Moonlit Lotus Garden',title:'Moonlit Lotus Garden',subtitle:'A moonlit lotus pond alive with lantern reflections and soft bioluminescence.',file:'images/gallery/moonlit-lotus-garden.webp'},
-  {id:'moonlit-lotus-bridge',name:'Moonlit Lotus Garden',title:'Moonlit Lotus Garden',subtitle:'A transitional painting that carries the night garden back into spring.',file:'images/gallery/between-06.webp'}
+const galleryScenes=[
+  {id:'spring-sakura',title:'Spring Sakura Stream',subtitle:'A blossom-lit river garden with a curved bridge and crystal water.',file:'images/gallery/spring-sakura-stream.webp'},
+  {id:'summer-falls',title:'Summer Waterfall Garden',subtitle:'Layered waterfalls and luminous terraces under warm early-summer light.',file:'images/gallery/summer-waterfall-garden.webp'},
+  {id:'summer-meadow',title:'Summer Meadow Brook',subtitle:'A sunlit meadow where a clear brook drifts through wildflowers and mossy stone.',file:'images/gallery/summer-meadow-brook.webp'},
+  {id:'autumn-maples',title:'Autumn Maple River',subtitle:'Golden-hour reflections glow beneath a red maple canopy.',file:'images/gallery/autumn-maple-river.webp'},
+  {id:'winter-cabin',title:'Winter Cabin Stream',subtitle:'Lantern light, snow, and a quiet cabin beside a flowing blue-hour stream.',file:'images/gallery/winter-cabin-stream.webp'},
+  {id:'alpine-sunrise',title:'Alpine Sunrise Lake',subtitle:'An alpine lookout opens to clear water, mist and snow-lit peaks at dawn.',file:'images/gallery/alpine-sunrise-lake.webp'},
+  {id:'lagoon-garden',title:'Sunlit Lagoon Garden',subtitle:'A tropical cove glows with coral shallows, waterfalls and warm coastal light.',file:'images/gallery/sunlit-lagoon-garden.webp'},
+  {id:'lantern-village',title:'Twilight Lantern Village',subtitle:'Lantern reflections shimmer through a flower-filled riverside village at blue hour.',file:'images/gallery/twilight-lantern-village.webp'},
+  {id:'bioluminescent-marsh',title:'Bioluminescent Marsh Garden',subtitle:'Luminous wetlands, moonlit water and glowing lotus light up the night.',file:'images/gallery/bioluminescent-marsh.webp'},
+  {id:'moonlit-lotus',title:'Moonlit Lotus Garden',subtitle:'A moonlit lotus pond alive with lantern reflections and soft bioluminescence.',file:'images/gallery/moonlit-lotus-garden.webp'}
 ];
+const galleryFrames=galleryScenes.flatMap((scene,i)=>[
+  {kind:'scene',sceneIndex:i,title:scene.title,subtitle:scene.subtitle,file:scene.file},
+  {kind:'bridge',sceneIndex:i,title:scene.title,subtitle:scene.subtitle,file:`images/gallery/bridge-${String(i+1).padStart(2,'0')}.webp`}
+]);
 
 const sanctuaryScenes=[
   {id:'spring-sakura',name:'Sakura Garden',title:'Spring Sakura Stream',subtitle:'Soft blossom light and clear water to settle into focus.',file:'images/sanctuary/spring-sakura-stream.webp'},
@@ -29,27 +30,30 @@ function exFull(stage){if(document.fullscreenElement===stage){document.exitFulls
 function exCloseFull(stage){stage.classList.remove('exExpanded');if(document.fullscreenElement===stage)document.exitFullscreen?.().catch(()=>{})}
 
 function gallery(){
-  main.innerHTML=`<section class="wrap exIntro"><div><div class="eyebrow">FRANK’S / INFINITE ART</div><h1>Infinite worlds.</h1><p>A rebuilt gallery using brand-new illustrated worlds. Full scenes are now spaced with custom in-between bridge paintings so the sequence can hold on each artwork, then transition more naturally into the next one without black seams, gaps, or abrupt jumps.</p></div><div class="exIntroMeta"><span class="exMicro">SCROLL EXPERIENCE</span><strong>∞</strong><span>${galleryWorlds.length} painted frames · smooth looping</span></div></section><section class="wrap"><div class="flowGallery" id="flowGallery"><div class="flowBar"><div><span class="exMicro">SEAMLESS PAINTED JOURNEY</span><strong id="flowCount">1 / ${galleryWorlds.length}</strong></div><div class="exControls"><button id="galleryPrev">↑ Previous</button><button id="galleryNext">Next ↓</button><button id="galleryAuto" aria-pressed="false">Auto scroll</button><label>Speed <select id="gallerySpeed"><option value="24">Slow</option><option value="42" selected>Gentle</option><option value="72">Fast</option></select></label><button id="galleryFull">⛶ Fullscreen</button></div></div><div class="flowViewport" id="flowViewport" tabindex="0" aria-label="Seamless scrolling concept art gallery"><div class="flowSticky"><div class="flowFrame"><img id="flowCurrent" class="flowScene current" alt=""><img id="flowNext" class="flowScene next" alt=""><div class="flowOverlay"><div class="eyebrow">CONTINUOUS GALLERY</div><h2 id="flowTitle"></h2><p id="flowSubtitle"></p></div></div></div><div class="flowSteps" id="flowSteps"></div></div></div></section>`;
-  const host=$('#flowGallery'), viewport=$('#flowViewport'), steps=$('#flowSteps'), current=$('#flowCurrent'), next=$('#flowNext'), title=$('#flowTitle'), subtitle=$('#flowSubtitle'), count=$('#flowCount'), autoBtn=$('#galleryAuto'), speedSel=$('#gallerySpeed');
-  const cycleCopies=3;
-  steps.innerHTML=Array.from({length:cycleCopies},()=>galleryWorlds.map(()=>`<div class="flowStep" aria-hidden="true"></div>`).join('')).join('');
-  let stepHeight=760, cycleHeight=0, auto=false, raf=0, last=0, disposed=false, scrollTick=0;
-  const dots=document.createElement('div'); dots.className='flowDots'; dots.innerHTML=galleryWorlds.map((_,i)=>`<button aria-label="Jump to scene ${i+1}" data-i="${i}"></button>`).join(''); host.querySelector('.flowBar').append(dots);
-  const setDots=i=>dots.querySelectorAll('button').forEach((b,idx)=>b.classList.toggle('selected', idx===i));
-  galleryWorlds.forEach(s=>{const im=new Image(); im.src=s.file;});
-  function setImage(el,src,alt){ if(el.dataset.src!==src){ el.src=src; el.alt=alt; el.dataset.src=src; }}
-  function measure(){ stepHeight=Math.max(520, Math.round(viewport.clientHeight*.92)); steps.querySelectorAll('.flowStep').forEach(step=>step.style.height=stepHeight+'px'); cycleHeight=stepHeight*galleryWorlds.length; if(!viewport.dataset.seeded){viewport.scrollTop=cycleHeight; viewport.dataset.seeded='1';} render(); }
-  function logicalPosition(){ let y=viewport.scrollTop; if(y<cycleHeight*.35){ viewport.scrollTop=y+cycleHeight; y+=cycleHeight; } else if(y>cycleHeight*1.65){ viewport.scrollTop=y-cycleHeight; y-=cycleHeight; } const sceneFloat=((y/stepHeight)%galleryWorlds.length+galleryWorlds.length)%galleryWorlds.length; const index=Math.floor(sceneFloat); const progress=sceneFloat-index; return {index,progress}; }
-  function render(){ if(disposed) return; const {index,progress}=logicalPosition(); const cur=galleryWorlds[index], nxt=galleryWorlds[(index+1)%galleryWorlds.length]; const eased=progress*progress*(3-2*progress); setImage(current,cur.file,cur.title); setImage(next,nxt.file,nxt.title); current.style.opacity=(1-eased*.92).toFixed(4); next.style.opacity=(eased).toFixed(4); current.style.transform=`scale(${1+eased*.018}) translate3d(0,0,0)`; next.style.transform=`scale(${1.02-eased*.02}) translate3d(0,0,0)`; const shown=progress>.985?nxt:cur; title.textContent=shown.title; subtitle.textContent=shown.subtitle; count.textContent=`${index+1} / ${galleryWorlds.length}`; setDots(index); }
-  function onScroll(){ if(scrollTick) return; scrollTick=requestAnimationFrame(()=>{scrollTick=0; render();}); }
-  function frame(ts){ if(disposed||!auto) return; if(!last) last=ts; const dt=Math.min(40, ts-last); last=ts; viewport.scrollTop += (Number(speedSel.value)||42)*dt/1000; render(); raf=requestAnimationFrame(frame); }
-  function setAuto(on){ auto=on; autoBtn.setAttribute('aria-pressed', String(on)); autoBtn.textContent=on?'Stop auto':'Auto scroll'; last=0; if(on){ raf=requestAnimationFrame(frame); } else cancelAnimationFrame(raf); }
-  function jump(dir){ viewport.scrollBy({top:dir*stepHeight, behavior:'smooth'}); }
-  viewport.addEventListener('scroll', onScroll, {passive:true});
-  $('#galleryPrev').onclick=()=>jump(-1); $('#galleryNext').onclick=()=>jump(1); $('#galleryAuto').onclick=()=>setAuto(!auto); $('#galleryFull').onclick=()=>exFull(host); dots.onclick=e=>{const b=e.target.closest('[data-i]'); if(!b) return; const target=Number(b.dataset.i); const {index}=logicalPosition(); const delta=((target-index+galleryWorlds.length)%galleryWorlds.length); viewport.scrollBy({top:delta*stepHeight, behavior:'smooth'}); };
-  viewport.onkeydown=e=>{ if(e.key==='ArrowDown'||e.key==='PageDown'){e.preventDefault(); jump(1)} else if(e.key==='ArrowUp'||e.key==='PageUp'){e.preventDefault(); jump(-1)} };
-  const onResize=()=>measure(); window.addEventListener('resize', onResize); measure(); if(exReduced()) setAuto(false);
-  cleanup=()=>{ disposed=true; setAuto(false); cancelAnimationFrame(scrollTick); window.removeEventListener('resize', onResize); exCloseFull(host); };
+  main.innerHTML=`<section class="wrap exIntro"><div><div class="eyebrow">FRANK’S / INFINITE ART</div><h1>Infinite worlds.</h1><p>The gallery now scrolls as a true vertical artwork carousel. Full illustrations are followed by custom bridge paintings so each world can lead cleanly into the next one with a smoother visual handoff and no fade-based swap.</p></div><div class="exIntroMeta"><span class="exMicro">SCROLL EXPERIENCE</span><strong>∞</strong><span>${galleryScenes.length} worlds · ${galleryFrames.length} stacked frames</span></div></section><section class="wrap"><div class="stripGallery" id="stripGallery"><div class="stripBar"><div><span class="exMicro">SEAMLESS PAINTED JOURNEY</span><strong id="stripCount">1 / ${galleryScenes.length}</strong></div><div class="exControls"><button id="stripPrev">↑ Previous</button><button id="stripNext">Next ↓</button><button id="stripAuto" aria-pressed="false">Auto scroll</button><label>Pace <select id="stripSpeed"><option value="4200">Slow</option><option value="3000" selected>Gentle</option><option value="1900">Fast</option></select></label><button id="stripFull">⛶ Fullscreen</button></div></div><div class="stripHud"><div class="eyebrow">CONTINUOUS GALLERY</div><h2 id="stripTitle"></h2><p id="stripSubtitle"></p></div><div class="stripViewport" id="stripViewport" tabindex="0" aria-label="Seamless scrolling concept art gallery"><div class="stripTrack" id="stripTrack"></div></div></div></section>`;
+  const host=$('#stripGallery'), viewport=$('#stripViewport'), track=$('#stripTrack'), count=$('#stripCount'), title=$('#stripTitle'), subtitle=$('#stripSubtitle'), autoBtn=$('#stripAuto'), speedSel=$('#stripSpeed');
+  const frameMarkup=galleryFrames.map((frame,i)=>`<article class="stripPanel ${frame.kind}" data-frame="${i}" data-scene="${frame.sceneIndex}" aria-label="${frame.title}"><img src="${frame.file}" alt="${frame.title}" draggable="false" loading="eager"></article>`).join('');
+  track.innerHTML=Array.from({length:3},()=>`<div class="stripCycle">${frameMarkup}</div>`).join('');
+  const dots=document.createElement('div'); dots.className='stripDots'; dots.innerHTML=galleryScenes.map((scene,i)=>`<button data-scene="${i}" aria-label="Jump to ${scene.title}"></button>`).join(''); host.querySelector('.stripBar').append(dots);
+  galleryFrames.forEach(frame=>{const im=new Image(); im.src=frame.file;});
+  let frameHeight=0, cycleHeight=0, auto=false, autoTimer=0, disposed=false, scrollTick=0;
+  const setDots=sceneIndex=>dots.querySelectorAll('button').forEach((b,i)=>b.classList.toggle('selected', i===sceneIndex));
+  function normalize(){ if(!cycleHeight) return; const low=cycleHeight*.5, high=cycleHeight*1.5; if(viewport.scrollTop<low) viewport.scrollTop+=cycleHeight; else if(viewport.scrollTop>high) viewport.scrollTop-=cycleHeight; }
+  function currentLogicalIndex(){ normalize(); return ((Math.round(viewport.scrollTop/frameHeight)%galleryFrames.length)+galleryFrames.length)%galleryFrames.length; }
+  function sync(){ if(disposed||!frameHeight) return; const idx=currentLogicalIndex(); const frame=galleryFrames[idx]; const scene=galleryScenes[frame.sceneIndex]; title.textContent=scene.title; subtitle.textContent=scene.subtitle; count.textContent=`${frame.sceneIndex+1} / ${galleryScenes.length}`; setDots(frame.sceneIndex); }
+  function measure(){ const panel=track.querySelector('.stripPanel'); if(!panel) return; frameHeight=Math.round(panel.getBoundingClientRect().height); cycleHeight=frameHeight*galleryFrames.length; if(!viewport.dataset.seeded){ viewport.scrollTop=cycleHeight; viewport.dataset.seeded='1'; } sync(); }
+  function gotoLogical(index, behavior='smooth'){ if(!frameHeight) return; normalize(); viewport.scrollTo({top:cycleHeight + index*frameHeight, behavior}); }
+  function gotoScene(sceneIndex){ gotoLogical(sceneIndex*2, 'smooth'); }
+  function step(dir){ const idx=currentLogicalIndex(); gotoLogical((idx+dir+galleryFrames.length)%galleryFrames.length, 'smooth'); }
+  function stopAuto(){ auto=false; clearTimeout(autoTimer); autoBtn.setAttribute('aria-pressed','false'); autoBtn.textContent='Auto scroll'; }
+  function scheduleAuto(){ clearTimeout(autoTimer); if(!auto||disposed) return; autoTimer=setTimeout(()=>{ step(1); scheduleAuto(); }, Number(speedSel.value)||3000); }
+  function setAuto(on){ auto=on; autoBtn.setAttribute('aria-pressed', String(on)); autoBtn.textContent=on?'Stop auto':'Auto scroll'; if(on) scheduleAuto(); else clearTimeout(autoTimer); }
+  viewport.addEventListener('scroll', ()=>{ if(scrollTick) return; scrollTick=requestAnimationFrame(()=>{ scrollTick=0; sync(); if(auto) scheduleAuto(); }); }, {passive:true});
+  $('#stripPrev').onclick=()=>step(-1); $('#stripNext').onclick=()=>step(1); $('#stripAuto').onclick=()=>setAuto(!auto); $('#stripFull').onclick=()=>exFull(host);
+  dots.onclick=e=>{ const b=e.target.closest('[data-scene]'); if(!b) return; gotoScene(Number(b.dataset.scene)); if(auto) scheduleAuto(); };
+  viewport.onkeydown=e=>{ if(e.key==='ArrowDown'||e.key==='PageDown'){ e.preventDefault(); step(1); } else if(e.key==='ArrowUp'||e.key==='PageUp'){ e.preventDefault(); step(-1); } };
+  const onResize=()=>measure(); window.addEventListener('resize', onResize); measure(); if(exReduced()) stopAuto();
+  cleanup=()=>{ disposed=true; stopAuto(); clearTimeout(autoTimer); cancelAnimationFrame(scrollTick); window.removeEventListener('resize', onResize); exCloseFull(host); };
 }
 
 function sanctuary(){
