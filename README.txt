@@ -8,3 +8,5 @@ Music Lounge: Experiences > Music Lounge or direct Music Lounge navigation. Six 
 Capri retired. The prior JavaScript and Netlify endpoint are replaced by inert stubs (HTTP 410 for the endpoint) because the updater copies files but does not remove old ones. Old avatar assets can be deleted from your repository if desired. If you previously configured Capri, remove OPENAI_API_KEY and CAPRI_TEST_CODE from Netlify and revoke the old key in the provider dashboard.
 
 Gallery and Focus Sanctuary retained from V13.2; no artwork or timer changes this release.
+
+V13.4: Redesigned Music Lounge with original cover art, J-pop/pop additions, and a more user-friendly layout.
