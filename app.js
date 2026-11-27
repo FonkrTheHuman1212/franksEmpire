@@ -16,7 +16,7 @@ const dept=k=>`<a class="dept" href="#${k}">${picture('images/home/dept-'+k+'.we
 const nav=Object.entries(names).map(([k,v])=>`<a href="#${k}">${v}</a>`).join('');
 const navLink=k=>`<a href="#${k}">${names[k]}</a>`;
 const navGroup=(title,keys)=>`<details class="navgroup"><summary>${title}<span aria-hidden="true">⌄</span></summary><div class="navmenu">${keys.map(navLink).join('')}</div></details>`;
-$('#nav').innerHTML=navLink('home')+navGroup('Shop',Object.keys(catalog))+navGroup('Experiences',['arcade','gallery','materials','media','lounge'])+navLink('lounge')+navGroup('Company',['story','people']);$('#footnav').innerHTML=nav;
+$('#nav').innerHTML=navLink('home')+navGroup('Shop',Object.keys(catalog))+navGroup('Experiences',['arcade','gallery','materials','media'])+navLink('lounge')+navGroup('Company',['story','people']);$('#footnav').innerHTML=nav;
 document.addEventListener('click',e=>{document.querySelectorAll('.navgroup[open]').forEach(d=>{if(!d.contains(e.target)||e.target.closest('a'))d.open=false})});document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.navgroup[open]').forEach(d=>d.open=false)});
 $('#mobile').onclick=()=>$('#nav').classList.toggle('open');
 $('#theme').onclick=()=>{document.body.classList.toggle('light');try{localStorage.setItem('empire-theme',document.body.classList.contains('light')?'light':'dark')}catch{}};
@@ -35,7 +35,7 @@ function search(){openModal('<h2>Explore the Empire</h2><input id="global" place
 $('#searchBtn').onclick=search;
 document.addEventListener('click',e=>{let b=e.target.closest('[data-product]'); if(b){e.preventDefault(); detail(all.find(p=>p.id===b.dataset.product))} if(e.target.closest('[data-build]')) buildFrank()});
 function initReviews(){const track=$('#reviewTrack'); if(!track)return; const slides=[...track.children]; let idx=0; const render=()=>{track.style.transform=`translateX(-${idx*100}%)`; $('#reviewDots').innerHTML=slides.map((_,i)=>`<button aria-label="Go to review ${i+1}" data-dot="${i}" class="${i===idx?'selected':''}"></button>`).join('')}; render(); const next=dir=>{idx=(idx+dir+slides.length)%slides.length; render()}; $('#prevReview').onclick=()=>next(-1); $('#nextReview').onclick=()=>next(1); $('#reviewDots').onclick=e=>{let b=e.target.closest('[data-dot]'); if(b){idx=+b.dataset.dot; render()}}; const timer=setInterval(()=>next(1),5000); cleanup=(()=>{const prior=cleanup; return ()=>{clearInterval(timer); prior&&prior()}})(); }
-function home(){main.innerHTML=hero('An extraordinary<br>everyday.','From a single roadside hot dog stand to a world of remarkable food, design, architecture and motion.','images/home/hero-campus.webp',false,'<a class="primary" href="#food">Explore the collection →</a><a class="secondary" href="#story">Our story</a>')+`<section class="wrap">${head('One empire. Many worlds.','Discover our distinct collections and experiences, united by an unreasonable attention to detail.')}<div class="grid departments">${Object.keys(desc).map(dept).join('')}</div></section><section class="band"><div class="wrap stats">${[['2019','Founded with one stand'],[String(all.length),'Products in the collection'],[String(Object.keys(catalog).length),'Shopping departments'],[String(games.length),'Playable games']].map(([a,b])=>`<div><strong>${a}</strong>${b}</div>`).join('')}</div></section><section class="wrap">${head('The signature collection','A few of our favorite things.')}<div class="grid">${[catalog.food[0],catalog.living[0],catalog.estates[0],catalog.motors[0]].map(card).join('')}</div></section><section class="wrap split">${picture('images/story/story-stand.webp','Original roadside stand')}<div><div class="eyebrow">Where it began · 2019</div><h2>It started with a hot dog.</h2><p>One grill. One recipe. A completely disproportionate ambition.</p><p>That same eye for detail eventually spilled into interiors, architecture, motion, and play.</p><a class="primary" href="#story">Discover our story →</a></div></section><section class="wrap">${head('What people are saying','Fictional sample reviews for this concept experience.')}<div class="reviews"><button class="reviewnav" id="prevReview" aria-label="Previous review">←</button><div class="reviewviewport"><div id="reviewTrack" class="reviewtrack">${reviews.map(r=>`<article class="reviewcard"><div class="eyebrow">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div><p class="reviewquote">“${r.quote}”</p><strong>${r.name}</strong><span>${r.role}</span></article>`).join('')}</div></div><button class="reviewnav" id="nextReview" aria-label="Next review">→</button></div><div id="reviewDots" class="reviewdots"></div></section><section class="wrap"><div class="sectionhead"><h2>Beyond shopping.</h2><p>Two new places to explore at your own pace.</p></div><div class="split"><a class="experienceCard" href="#gallery"><span>01 / ART</span><h2>Beyond the frame</h2><p>Explore an endless gallery of imagined landscapes.</p></a><a class="experienceCard materialCard" href="#materials"><span>02 / PLAY</span><h2>Material laboratory</h2><p>Interact with water, marbles, silk and more.</p></a></div></section>`; initReviews()}
+function home(){main.innerHTML=hero('An extraordinary<br>everyday.','From a single roadside hot dog stand to a world of remarkable food, design, architecture and motion.','images/home/hero-campus.webp',false,'<a class="primary" href="#food">Explore the collection →</a><a class="secondary" href="#story">Our story</a>')+`<section class="wrap">${head('One empire. Many worlds.','Discover our distinct collections and experiences, united by an unreasonable attention to detail.')}<div class="grid departments">${Object.keys(desc).map(dept).join('')}</div></section><section class="band"><div class="wrap stats">${[['2019','Founded with one stand'],[String(all.length),'Products in the collection'],[String(Object.keys(catalog).length),'Shopping departments'],[String(games.length),'Playable games']].map(([a,b])=>`<div><strong>${a}</strong>${b}</div>`).join('')}</div></section><section class="wrap">${head('The signature collection','A few of our favorite things.')}<div class="grid">${[catalog.food[0],catalog.living[0],catalog.estates[0],catalog.motors[0]].map(card).join('')}</div></section><section class="wrap split">${picture('images/story/story-stand.webp','Original roadside stand')}<div><div class="eyebrow">Where it began · 2019</div><h2>It started with a hot dog.</h2><p>One grill. One recipe. A completely disproportionate ambition.</p><p>That same eye for detail eventually spilled into interiors, architecture, motion, and play.</p><a class="primary" href="#story">Discover our story →</a></div></section><section class="wrap">${head('What people are saying','Fictional sample reviews for this concept experience.')}<div class="reviews"><button class="reviewnav" id="prevReview" aria-label="Previous review">←</button><div class="reviewviewport"><div id="reviewTrack" class="reviewtrack">${reviews.map(r=>`<article class="reviewcard"><div class="eyebrow">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div><p class="reviewquote">“${r.quote}”</p><strong>${r.name}</strong><span>${r.role}</span></article>`).join('')}</div></div><button class="reviewnav" id="nextReview" aria-label="Next review">→</button></div><div id="reviewDots" class="reviewdots"></div></section><section class="wrap"><div class="sectionhead"><h2>Beyond shopping.</h2><p>Four experiences to explore at your own pace.</p></div><div class="split finalExperiences"><a class="experienceCard" href="#gallery"><span>01 / ART</span><h2>Beyond the frame</h2><p>Explore an endless gallery of imagined landscapes.</p></a><a class="experienceCard materialCard" href="#materials"><span>02 / PLAY</span><h2>Material laboratory</h2><p>Interact with water, marbles, silk and more.</p></a><a class="experienceCard finalFocusCard" href="#media"><span>03 / FOCUS</span><h2>Focus Sanctuary</h2><p>Set a study timer in a quiet illustrated retreat.</p></a><a class="experienceCard finalMusicCard" href="#lounge"><span>04 / LISTEN</span><h2>Music Lounge</h2><p>Discover playlists and albums in the Gold Edition listening room.</p></a></div></section>`; initReviews()}
 function department(k){let items=catalog[k],cats=['All',...new Set(items.map(p=>p.category))];main.innerHTML=hero('Frank’s '+names[k],desc[k],`images/home/dept-${k}.webp`,true,k==='food'?'<button class="primary" data-build>Build your Frank</button>':({technology:'techgame',fashion:'fashiongame',athletics:'sportgame',music:'musicgame',kitchenware:'coffeegame',travel:'travelgame',stationery:'inkgame',living:'interior',motors:'drive'}[k]?`<a class="primary" href="#${{technology:'techgame',fashion:'fashiongame',athletics:'sportgame',music:'musicgame',kitchenware:'coffeegame',travel:'travelgame',stationery:'inkgame',living:'interior',motors:'drive'}[k]}">Play the collection →</a>`:''))+`<section class="wrap">${head('The collection',items.length+' products · Explore, customize and discover.')}<div class="filters" id="cats">${cats.map(c=>`<button data-cat="${c}">${c}</button>`).join('')}</div><div class="filters"><input id="query" placeholder="Search this collection…"><select id="sort" aria-label="Sort"><option value="featured">Featured</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option><option value="name">Name</option></select></div><div id="products" class="grid"></div></section>`; let cat='All'; let run=()=>{let q=$('#query').value.toLowerCase(),s=$('#sort').value,ps=items.filter(p=>(cat==='All'||p.category===cat)&&(p.name+' '+p.description).toLowerCase().includes(q)); ps.sort((a,b)=>s==='low'?a.price-b.price:s==='high'?b.price-a.price:s==='name'?a.name.localeCompare(b.name):Number(!!b.featured)-Number(!!a.featured)); $('#products').innerHTML=ps.map(card).join('')||'<p>No matching products.</p>'; document.querySelectorAll('[data-cat]').forEach(b=>b.classList.toggle('selected',b.dataset.cat===cat))}; $('#query').oninput=run; $('#sort').onchange=run; document.querySelectorAll('[data-cat]').forEach(b=>b.onclick=()=>{cat=b.dataset.cat;run()}); run()}
 function story(){main.innerHTML=hero('Small stand.<br>Big ambitions.','How a hot dog became an empire.','images/story/story-stand.webp',true)+`<section class="wrap split">${picture('images/story/story-stand.webp','California roadside stand')}<div><div class="eyebrow">The birthplace · California, 2019</div><h2>One grill, no grand plan.</h2><p>Frank opened a tiny roadside stand with a simple idea: ordinary things deserve extraordinary care. Customers came back for the toasted buns, the homemade sauces, and the feeling that even simple comfort food could feel considered.</p><p>When the stand needed new furniture, Frank commissioned a chair. The chair became a collection. The collection needed a showroom. The showroom became a house. Eventually, someone asked for a car.</p><p>And so, unexpectedly, Frank’s Empire was born.</p></div></section><section class="band"><div class="wrap">${head('The milestones','An imagined company timeline.')}<div class="timeline">${[['2019','The first Frank','A small roadside stand opens.'],['2021','The flagship','A restaurant brings the original recipe to a larger audience.'],['2023','Frank’s Living','The furniture experiment becomes a design studio.'],['2024','Frank’s Estates','Architecture joins the family.'],['2025','Frank’s Motors','The first concept grand tourer debuts.'],['2026','The arcade','The empire learns to play.']].map(([y,t,d])=>`<div><strong>${y}</strong><h3>${t}</h3><p>${d}</p></div>`).join('')}</div></div></section><section class="wrap">${head('The people behind it','Meet the team.')}<div class="grid departments">${[['frank','Frank Guo','Founder','Started the original stand and still pushes every department to feel thoughtful.'],['chef','Maya Torres','Executive chef','Turns comfort food into memorable experiences.'],['designer','Elliot Chen','Design director','Makes everyday objects worth keeping.'],['architect','Clara Vale','Chief architect','Designs spaces around light and landscape.'],['engineer','Marcus Reed','Motors director','Imagines the next generation of grand touring.'],['games','Sofia Reyes','Arcade director','Makes the empire a little less serious.']].map(([f,n,r,d])=>`<article class="product"><div class="photo" style="aspect-ratio:1">${picture('images/story/team-'+f+'.webp',n)}</div><div class="info"><div class="eyebrow">${r}</div><h3>${n}</h3><p>${d}</p></div></article>`).join('')}</div></section>`}
 const games=[['kitchen','Kitchen Rush','Assemble orders before time runs out.','images/arcade/k-board.webp'],['interior','Interior Atelier','Design your own luxury room.','images/arcade/f-room.webp'],['drive','Midnight Drive','Cruise a virtual neon highway and avoid traffic.','images/arcade/r-skyline.webp'],['techgame','Circuit Architect','Rotate conduits and power a circuit.','images/technology/technology-5.webp'],['fashiongame','Runway Atelier','Style outfits for specific creative briefs.','images/fashion/fashion-0.webp'],['sportgame','Pool Sprint','Race a 50m virtual swim with rhythmic strokes.','images/athletics/athletics-0.webp'],['musicgame','Concert Ear','Identify instruments by their synthesized sounds.','images/music/music-2.webp'],['coffeegame','Espresso Dial','Stop the extraction at the perfect moment.','images/kitchenware/kitchenware-0.webp'],['travelgame','Cabin Cargo','Arrange travel equipment inside a suitcase.','images/travel/travel-0.webp'],['inkgame','Type Atelier','Type original phrases against the clock.','images/stationery/stationery-0.webp']];
@@ -45,37 +45,139 @@ function kitchen(){gameShell('Kitchen Rush','<button class="primary" id="start">
 function interior(){gameShell('Interior Atelier','<button id="reset">Reset room</button><button id="rotate">Rotate selected</button><button id="remove">Remove selected</button><strong id="designscore">Design score 0</strong>','','Tap an item to add it, then drag it around the room. Select an item to rotate or remove it.'); let a=$('#arena'),sel=null,items=['sofa','armchair','coffee','lamp','plant','rug','art','sideboard']; a.style.backgroundImage="url('images/arcade/f-room.webp')"; let shelf=document.createElement('div'); shelf.className='filters'; shelf.id='furniture'; shelf.innerHTML=items.map(x=>`<button class="ingredient" data-f="${x}">${picture('images/arcade/f-'+x+'.webp',x)}${x}</button>`).join(''); a.append(shelf); let score=()=>$('#designscore').textContent='Design score '+Math.min(100,new Set([...a.querySelectorAll('.placed')].map(x=>x.dataset.type)).size*13); document.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{let x=document.createElement('img'); x.src='images/arcade/f-'+b.dataset.f+'.webp'; x.alt=b.dataset.f; x.className='placed'; x.draggable=false; x.ondragstart=e=>e.preventDefault(); x.dataset.type=b.dataset.f; x.style.left='50%'; x.style.top='70%'; x.dataset.angle='0'; a.append(x); sel=x; score(); x.onpointerdown=e=>{e.preventDefault(); sel=x; x.classList.add('selected-piece'); let r=a.getBoundingClientRect(); let xr=parseFloat(x.style.left)||50, yr=parseFloat(x.style.top)||70; let currentX=r.left+r.width*(xr/100), currentY=r.top+r.height*(yr/100); let dx=e.clientX-currentX, dy=e.clientY-currentY; if(x.setPointerCapture) x.setPointerCapture(e.pointerId); x.onpointermove=ev=>{let rx=((ev.clientX-dx)-r.left)/r.width*100, ry=((ev.clientY-dy)-r.top)/r.height*100; x.style.left=Math.max(8,Math.min(92,rx))+'%'; x.style.top=Math.max(12,Math.min(88,ry))+'%'}; let done=()=>{x.onpointermove=null; x.classList.remove('selected-piece')}; x.onpointerup=done; x.onpointercancel=done; }; }); $('#reset').onclick=()=>{[...a.querySelectorAll('.placed')].forEach(n=>n.remove()); sel=null; score()}; $('#rotate').onclick=()=>{if(sel){sel.dataset.angle=+sel.dataset.angle+15; sel.style.transform=`translate(-50%,-50%) rotate(${sel.dataset.angle}deg)`}}; $('#remove').onclick=()=>{if(sel){sel.remove(); sel=null; score()}} }
 function drive(){gameShell('Midnight Drive','<button class="primary" id="start">Start / restart</button><button id="pause">Pause</button><strong id="distance">Distance 0 m</strong>','<canvas id="road" width="960" height="540"></canvas>','Use A/D or arrow keys, or hold the steering buttons. Avoid traffic in this arcade challenge.'); let extra=document.createElement('div'); extra.className='filters'; extra.innerHTML='<button id="left">← Steer left</button><button id="right">Steer right →</button>'; $('#arena').after(extra); let c=$('#road'),ctx=c.getContext('2d'),images={}; for(let k of ['skyline','car','traffic','palm']){let im=new Image;im.src='images/arcade/r-'+k+'.webp';images[k]=im} let active=false,paused=false,pos=0,distance=0,traffic=[],keys={},last=0,raf,spawn=0,crash=false; let drawImg=(k,x,y,w,h)=>{let i=images[k]; if(i.complete&&i.naturalWidth)ctx.drawImage(i,x,y,w,h)}; function frame(t){let dt=Math.min(.035,(t-last)/1000||0); last=t; if(active&&!paused){pos=Math.max(-.88,Math.min(.88,pos+((keys.right?1:0)-(keys.left?1:0))*dt*1.5)); distance+=dt*45; spawn+=dt; if(spawn>1.35){spawn=0; traffic.push({z:0,lane:[-.65,0,.65][Math.floor(Math.random()*3)]})} for(let o of traffic){o.z+=dt*.36; if(o.z>.86&&o.z<1.03&&Math.abs(o.lane-pos)<.28){active=false;crash=true}} traffic=traffic.filter(o=>o.z<1.15); $('#distance').textContent='Distance '+Math.floor(distance)+' m'} ctx.fillStyle='#131526'; ctx.fillRect(0,0,960,540); drawImg('skyline',0,0,960,310); ctx.fillStyle='#29282c'; ctx.beginPath(); ctx.moveTo(450,235); ctx.lineTo(510,235); ctx.lineTo(960,540); ctx.lineTo(0,540); ctx.fill(); for(let i=0;i<22;i++){let z=((i/22+distance/130)%1),y=235+305*z*z,w=30+450*z*z; ctx.fillStyle=i%2?'#d0a55b':'#f1e7d0'; ctx.fillRect(480-w,y,Math.max(2,z*8),Math.max(2,z*9)); ctx.fillRect(480+w,y,Math.max(2,z*8),Math.max(2,z*9)); for(let lane of [-1/3,1/3])ctx.fillRect(480+w*lane,y,Math.max(1,z*5),Math.max(2,z*13)); if(i%5===0){drawImg('palm',480-w-80*z,y-160*z,70*z,160*z); drawImg('palm',480+w+10*z,y-160*z,70*z,160*z)}} for(let o of [...traffic].sort((a,b)=>a.z-b.z)){let z=o.z,w=30+130*z*z; drawImg('traffic',480+o.lane*(30+410*z*z)-w/2,235+270*z*z-w*.55,w,w*.7)} drawImg('car',480+pos*390-100,400,200,130); if(!active||paused){ctx.fillStyle='#0009';ctx.fillRect(0,0,960,540);ctx.fillStyle='#f4d69d';ctx.font='42px Georgia';ctx.textAlign='center';ctx.fillText(crash?'Round complete · '+Math.floor(distance)+' m':paused?'Paused':'Midnight Drive',480,260);ctx.font='18px sans-serif';ctx.fillText('Press Start to play',480,300)} raf=requestAnimationFrame(frame)} $('#start').onclick=()=>{active=true;paused=false;crash=false;pos=distance=spawn=0;traffic=[];$('#pause').textContent='Pause'}; $('#pause').onclick=()=>{if(active){paused=!paused;$('#pause').textContent=paused?'Resume':'Pause'}}; let key=(e,on)=>{let k=e.key.toLowerCase(); if(['arrowleft','a','arrowright','d'].includes(k)){e.preventDefault(); keys[k==='a'||k==='arrowleft'?'left':'right']=on}}; let down=e=>key(e,true),up=e=>key(e,false); window.addEventListener('keydown',down); window.addEventListener('keyup',up); for(let k of ['left','right']){$('#'+k).onpointerdown=e=>{e.currentTarget.setPointerCapture?.(e.pointerId);keys[k]=true};$('#'+k).onpointerup=$('#'+k).onpointercancel=()=>keys[k]=false} raf=requestAnimationFrame(frame); cleanup=()=>{cancelAnimationFrame(raf);window.removeEventListener('keydown',down);window.removeEventListener('keyup',up)} }
 
-/* V13.4: Independent, noncommercial music discovery lounge. */
+/* V13.5: Independent, noncommercial music discovery lounge. */
 function musicLounge(){
  const picks=[
-  {id:'37i9dQZF1DX4sWSpwq3LiO',name:'Golden Hours',mood:'Focus',tag:'Golden ambient / late-night unwind',type:'playlist',cover:'images/lounge/golden-hours.webp',blurb:'Warm, elegant listening for reading, sketching and decompressing.'},
-  {id:'37i9dQZF1DWZeKCadgRdKQ',name:'Focus Mode',mood:'Focus',tag:'Study focus / quiet concentration',type:'playlist',cover:'images/lounge/focus-mode.webp',blurb:'A calm desk-side mood when you want something beautiful but not distracting.'},
-  {id:'37i9dQZF1DX4sWSpwq3LiO',name:'Piano Noir',mood:'Piano',tag:'Soft keys / midnight lounge',type:'playlist',cover:'images/lounge/piano-noir.webp',blurb:'Elegant piano-led atmosphere for writing, homework and winding down.'},
-  {id:'37i9dQZF1DWWQRwui0ExPn',name:'Lo-Fi Velvet',mood:'Lo-fi',tag:'Rainy evenings / mellow beats',type:'playlist',cover:'images/lounge/lofi-velvet.webp',blurb:'Cozy beats, warm textures and a little rainy-window energy.'},
-  {id:'37i9dQZF1DX3TPMgP3ojGS',name:'J-Pop Neon',mood:'J-Pop',tag:'YOASOBI inspired / bright city nights',type:'playlist',cover:'images/lounge/jpop-neon.webp',blurb:'A sparkling anime-city moodboard for pop melodies and neon-night energy.'},
-  {id:'37i9dQZF1DWUa8ZRTfalHk',name:'Pop Afterglow',mood:'Pop',tag:'Glossy hooks / uplifting energy',type:'playlist',cover:'images/lounge/pop-afterglow.webp',blurb:'Big choruses, bright polish and that luxury night-out glow.'},
-  {id:'37i9dQZF1DX3SiCzCxMDOH',name:'Jazz After Dark',mood:'Jazz',tag:'Late lounge / velvet brass',type:'playlist',cover:'images/lounge/jazz-after-dark.webp',blurb:'Smooth evening jazz in a richer, more cinematic presentation.'},
-  {id:'37i9dQZF1DWYmmr74INQlb',name:'City Pop Cruise',mood:'Pop',tag:'Retro drive / sunset skyline',type:'playlist',cover:'images/lounge/city-pop-cruise.webp',blurb:'Retro-future cruising music with sunset colors and sleek motion.'}
- ];
+  {
+    "id": "1SvH1lo09QnE5nfxJOtkgp",
+    "name": "Golden Hours",
+    "mood": "Lo-fi",
+    "tag": "golden hour chill lofi 🌅 · Background Club",
+    "type": "playlist",
+    "cover": "images/lounge/golden-hours.webp",
+    "blurb": "Mellow instrumental beats for quiet evenings.",
+    "spotifyTitle": "golden hour chill lofi 🌅",
+    "owner": "Background Club"
+  },
+  {
+    "id": "37i9dQZF1DWZeKCadgRdKQ",
+    "name": "Focus Mode",
+    "mood": "Focus",
+    "tag": "Deep Focus · Spotify",
+    "type": "playlist",
+    "cover": "images/lounge/focus-mode.webp",
+    "blurb": "Atmospheric instrumentals for concentration.",
+    "spotifyTitle": "Deep Focus",
+    "owner": "Spotify"
+  },
+  {
+    "id": "37i9dQZF1DX4sWSpwq3LiO",
+    "name": "Piano Noir",
+    "mood": "Piano",
+    "tag": "Peaceful Piano · Spotify",
+    "type": "playlist",
+    "cover": "images/lounge/piano-noir.webp",
+    "blurb": "Gentle piano for reading and study.",
+    "spotifyTitle": "Peaceful Piano",
+    "owner": "Spotify"
+  },
+  {
+    "id": "37i9dQZF1DWWQRwui0ExPn",
+    "name": "Lo-Fi Velvet",
+    "mood": "Lo-fi",
+    "tag": "lofi beats · Spotify",
+    "type": "playlist",
+    "cover": "images/lounge/lofi-velvet.webp",
+    "blurb": "Relaxed lo-fi rhythms.",
+    "spotifyTitle": "lofi beats",
+    "owner": "Spotify"
+  },
+  {
+    "id": "37i9dQZF1DXdbRLJPSmnyq",
+    "name": "J-Pop Neon",
+    "mood": "J-Pop",
+    "tag": "J-Pop Hits · Spotify",
+    "type": "playlist",
+    "cover": "images/lounge/jpop-neon.webp",
+    "blurb": "Japanese pop, including artists such as YOASOBI.",
+    "spotifyTitle": "J-Pop Hits",
+    "owner": "Spotify"
+  },
+  {
+    "id": "31J0PX4kQOlImKIX3FT2nq",
+    "name": "Pop Afterglow",
+    "mood": "Pop",
+    "tag": "Clean Pop Hits 2026 · KULTPOP!",
+    "type": "playlist",
+    "cover": "images/lounge/pop-afterglow.webp",
+    "blurb": "A selection of popular songs curated by KULTPOP!",
+    "spotifyTitle": "Clean Pop Hits 2026",
+    "owner": "KULTPOP!"
+  },
+  {
+    "id": "37i9dQZF1DWXSyfX6gqDNp",
+    "name": "Jazz After Dark",
+    "mood": "Jazz",
+    "tag": "Evening Jazz · Spotify",
+    "type": "playlist",
+    "cover": "images/lounge/jazz-after-dark.webp",
+    "blurb": "Relaxed jazz for the evening.",
+    "spotifyTitle": "Evening Jazz",
+    "owner": "Spotify"
+  },
+  {
+    "id": "37i9dQZF1DWW28hvtiO3j9",
+    "name": "City Pop Cruise",
+    "mood": "City Pop",
+    "tag": "City Pop '80s · Spotify",
+    "type": "playlist",
+    "cover": "images/lounge/city-pop-cruise.webp",
+    "blurb": "Classic Japanese city pop.",
+    "spotifyTitle": "City Pop '80s",
+    "owner": "Spotify"
+  },
+  {
+    "id": "1xhO0GSoezdPJcSuNe1ySv",
+    "name": "THE BOOK",
+    "mood": "J-Pop",
+    "tag": "THE BOOK · YOASOBI",
+    "type": "album",
+    "cover": "images/lounge/yoasobi-book.webp",
+    "blurb": "YOASOBI’s 2021 release. Includes 夜に駆ける and 群青.",
+    "spotifyTitle": "THE BOOK",
+    "owner": "YOASOBI"
+  },
+  {
+    "id": "68w73FF3dYC6C3RWdcV0Yl",
+    "name": "THE BOOK 3",
+    "mood": "J-Pop",
+    "tag": "THE BOOK 3 · YOASOBI",
+    "type": "album",
+    "cover": "images/lounge/yoasobi-book-3.webp",
+    "blurb": "YOASOBI’s 2023 release.",
+    "spotifyTitle": "THE BOOK 3",
+    "owner": "YOASOBI"
+  }
+];
  const key='empire-lounge-saved-v2';
  const valid=(type,id)=>['playlist','album','track','artist','episode','show'].includes(type)&&/^[A-Za-z0-9]{22}$/.test(id);
  const parse=s=>{s=s.trim(); const uri=/^spotify:(playlist|album|track|artist|episode|show):([A-Za-z0-9]{22})$/.exec(s);if(uri)return {type:uri[1],id:uri[2]};try{const u=new URL(s);if(u.protocol!=='https:'||u.hostname!=='open.spotify.com'||u.port||u.username||u.password)return null;const m=/^\/(?:intl-[a-zA-Z-]+\/)?(?:embed\/)?(playlist|album|track|artist|episode|show)\/([A-Za-z0-9]{22})\/?$/.exec(u.pathname);return m?{type:m[1],id:m[2]}:null}catch{return null}};
  const link=x=>`https://open.spotify.com/${x.type}/${x.id}`;
- const same=(a,b)=>a.type===b.type&&a.id===b.id&&a.name===b.name;
+ const same=(a,b)=>a.type===b.type&&a.id===b.id;
  const resolve=x=>picks.find(p=>p.type===x.type&&p.id===x.id)||{type:x.type,id:x.id,name:`Spotify ${x.type}`,mood:'Personal',tag:'Your selected link',cover:'images/lounge/hero.webp',blurb:'Loaded from your own Spotify link.'};
- let saved=[];try{const raw=JSON.parse(localStorage.getItem(key)||'[]');if(Array.isArray(raw))saved=raw.filter(x=>x&&valid(x.type,x.id)).slice(0,60).map(resolve)}catch{}
+ let saved=[];try{const raw=JSON.parse(localStorage.getItem(key)||'[]');if(Array.isArray(raw))saved=raw.filter(x=>x&&valid(x.type,x.id)).map(resolve).filter((x,i,a)=>a.findIndex(y=>same(x,y))===i).slice(0,60)}catch{}
  let current=picks[0],filter='All',q='',loaded=false;
  main.innerHTML=`<section class="wrap lounge" aria-label="Empire Music Lounge">
  <div class="loungeMast">
-  <div class="loungeMastCopy"><div class="eyebrow">FRANK’S EMPIRE / MUSIC LOUNGE</div><h1>Play something beautiful<span>.</span></h1><p>A smoother, more natural listening space with original cover art, richer moods and a better way to jump between focus, piano, jazz, J-pop and polished pop.</p><div class="loungeMastActions"><a href="#media">Focus Sanctuary ↗</a><a href="https://open.spotify.com/" target="_blank" rel="noopener noreferrer">Open Spotify ↗</a></div><div class="loungeQuickPicks">${['Focus','Piano','Lo-fi','J-Pop','Pop','Jazz'].map(x=>`<button type="button" data-quick="${x}">${x}</button>`).join('')}</div></div>
+  <div class="loungeMastCopy"><div class="eyebrow">FRANK’S EMPIRE / MUSIC LOUNGE</div><h1>Play something beautiful<span>.</span></h1><p>Find a record for the moment. Explore handpicked Spotify collections, real albums and original Empire sleeve art.</p><div class="loungeMastActions"><a href="#media">Focus Sanctuary ↗</a><a href="https://open.spotify.com/" target="_blank" rel="noopener noreferrer">Open Spotify ↗</a></div><div class="loungeQuickPicks">${['Focus','Piano','Lo-fi','J-Pop','Pop','City Pop','Jazz'].map(x=>`<button type="button" data-quick="${x}">${x}</button>`).join('')}</div></div>
   <div class="loungeEdition"><span>EMPIRE</span><strong>GOLD</strong><span>LISTENING ROOM</span></div>
  </div>
  <div class="loungeBody">
-  <aside class="loungeSide"><div class="eyebrow">BROWSE</div><h2>Collections</h2><div class="loungeFilters" id="loungeFilters">${['All','Focus','Piano','Lo-fi','J-Pop','Pop','Jazz','Saved'].map(x=>`<button type="button" data-mood="${x}" aria-pressed="${x==='All'}">${x==='Saved'?'♡ ':''}${x}</button>`).join('')}</div><div class="loungeSideNote"><span class="eyebrow">PRIVATE LIBRARY</span><p>Saved selections stay in this browser only. No Empire account needed.</p></div></aside>
+  <aside class="loungeSide"><div class="eyebrow">BROWSE</div><h2>Collections</h2><div class="loungeFilters" id="loungeFilters">${['All','Focus','Piano','Lo-fi','J-Pop','Pop','City Pop','Jazz','Saved'].map(x=>`<button type="button" data-mood="${x}" aria-pressed="${x==='All'}">${x==='Saved'?'♡ ':''}${x}</button>`).join('')}</div><div class="loungeSideNote"><span class="eyebrow">PRIVATE LIBRARY</span><p>Saved selections stay in this browser only. No Empire account needed.</p></div></aside>
   <div class="loungeMain"><div class="loungeSectionHead"><div><div class="eyebrow">THE EDIT</div><h2 id="loungeHeading">Curated for you</h2></div><label class="loungeSearch">Find a collection<input id="loungeSearch" type="search" placeholder="Search by title, vibe or genre" maxlength="100"></label></div><div id="loungeCards" class="loungeCards"></div>
-  <div class="loungeNow"><div class="loungeNowHead"><div><div class="eyebrow">NOW PLAYING / SPOTIFY</div><h2 id="loungeNowTitle"></h2><p id="loungeNowTag"></p></div><div class="loungeNowActions"><button id="loungeSave" aria-pressed="false">♡ Save</button><a id="loungeOpen" target="_blank" rel="noopener noreferrer">Open in Spotify ↗</a></div></div><div class="loungeFeature"><div class="loungeFeatureArt" id="loungeFeatureArt"></div><div class="loungeFeatureCopy"><p id="loungeNowBlurb"></p><div id="loungePlayer" class="loungePlayer"></div></div></div><p class="loungeFine">Playback is provided by Spotify. Track availability, full playback, sign-in and ads depend on your Spotify account, device and location.</p></div>
+  <div class="loungeNow"><div class="loungeNowHead"><div><div class="eyebrow">SELECTED / SPOTIFY</div><h2 id="loungeNowTitle"></h2><p id="loungeNowTag"></p></div><div class="loungeNowActions"><button id="loungeSave" aria-pressed="false">♡ Save</button><a id="loungeOpen" target="_blank" rel="noopener noreferrer">Open in Spotify ↗</a></div></div><div class="loungeFeature"><div class="loungeFeatureArt" id="loungeFeatureArt"></div><div class="loungeFeatureCopy"><p id="loungeNowBlurb"></p><div id="loungePlayer" class="loungePlayer"></div></div></div><p class="loungeFine">Playback is provided by Spotify. Track availability, full playback, sign-in and ads depend on your Spotify account, device and location.</p></div>
   <form id="loungeLinkForm" class="loungeLinkForm"><div><div class="eyebrow">MAKE IT YOURS</div><h3>Load your own Spotify link.</h3><p>Paste a public Spotify link to a playlist, album, track, artist or podcast.</p></div><label for="loungeLink" class="loungeLabel">Spotify link</label><div class="loungeLinkRow"><input id="loungeLink" type="text" maxlength="500" placeholder="https://open.spotify.com/…" required><button class="primary" type="submit">Load link</button></div><p id="loungeLinkStatus" role="status"></p></form>
-  <div class="loungeFine">Independent concept website · This is a custom Empire interface around Spotify’s official player. It does not unlock Spotify Premium or paid features. <a href="https://www.spotify.com/legal/privacy-policy/" target="_blank" rel="noopener noreferrer">Spotify privacy policy ↗</a></div></div></div></section>`;
+  <div class="loungeFine">Independent concept website · Empire sleeve artwork is decorative, not official Spotify or artist album art. Exact Spotify titles and creators appear below each collection. It does not unlock Spotify Premium or paid features. <a href="https://www.spotify.com/legal/privacy-policy/" target="_blank" rel="noopener noreferrer">Spotify privacy policy ↗</a></div></div></div></section>`;
  const root=main.querySelector('.lounge'); const get=id=>root.querySelector('#'+id);
  const persist=()=>{try{localStorage.setItem(key,JSON.stringify(saved.map(({type,id})=>({type,id}))))}catch{}};
  function renderCards(){
@@ -84,16 +186,16 @@ function musicLounge(){
    const cards=get('loungeCards');cards.replaceChildren();
    for(const x of arr){
      const b=document.createElement('button');b.type='button';b.className='loungeCard'+(same(x,current)?' isActive':'');b.setAttribute('aria-pressed',String(same(x,current)));
-     b.innerHTML=`<span class="loungeCover" style="background-image:url('${x.cover}')"></span><span class="loungeCardCopy"><em>${x.mood}</em><strong></strong><small></small><span class="loungeCardBrand">Spotify listening room ↗</span></span>`;
-     b.querySelector('strong').textContent=x.name; b.querySelector('small').textContent=x.tag; b.onclick=()=>select(x,true); cards.append(b)
+     b.innerHTML=`<span class="loungeCover" style="background-image:url('${x.cover}')"></span><span class="loungeCardCopy"><em>${x.mood}</em><strong></strong><small></small><span class="loungeCardBrand">Select to listen →</span></span>`;
+     b.querySelector('strong').textContent=x.name; b.querySelector('small').textContent=x.tag+' · '+(x.type==='album'?'Album':x.type==='playlist'?'Playlist':x.type); b.onclick=()=>{select(x,true);get('loungeNowTitle').scrollIntoView({block:'start',behavior:'auto'})}; cards.append(b)
    }
-   if(!arr.length){const p=document.createElement('p');p.className='loungeEmpty';p.textContent=filter==='Saved'?'Save a selection at the listening desk to build your library.':'No matching collections.';cards.append(p)}
+   if(!arr.length){const p=document.createElement('p');p.className='loungeEmpty';p.textContent=filter==='Saved'?'Save a selection at the listening desk to build your library.':'No matching collections. Try another search or choose All.';cards.append(p)}
  }
  function saveState(){const is=saved.some(x=>x.type===current.type&&x.id===current.id);get('loungeSave').textContent=is?'♥ Saved':'♡ Save';get('loungeSave').setAttribute('aria-pressed',String(is))}
  function renderPlayer(){const player=get('loungePlayer');player.replaceChildren();if(!loaded){const button=document.createElement('button');button.type='button';button.className='loungeLoad';button.innerHTML='<span aria-hidden="true">▶</span><strong>Load Spotify player</strong><small>Connect to Spotify to listen</small>';button.onclick=()=>{loaded=true;renderPlayer()};player.append(button);return}const iframe=document.createElement('iframe');iframe.title='Spotify player: '+current.name;iframe.src=`https://open.spotify.com/embed/${current.type}/${current.id}?theme=0`;iframe.width='100%';iframe.height=current.type==='track'||current.type==='episode'?'152':'352';iframe.setAttribute('allow','autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture');iframe.setAttribute('allowfullscreen','');iframe.setAttribute('referrerpolicy','strict-origin-when-cross-origin');player.append(iframe)}
- function select(x,activate){const changed=!(current.type===x.type&&current.id===x.id&&current.name===x.name);current=x;get('loungeNowTitle').textContent=x.name;get('loungeNowTag').textContent=x.tag;get('loungeNowBlurb').textContent=x.blurb||'';get('loungeOpen').href=link(x);get('loungeFeatureArt').style.backgroundImage=`url('${x.cover}')`;if(changed||!loaded){loaded=activate;renderPlayer()}saveState();renderCards()}
- get('loungeFilters').onclick=e=>{const b=e.target.closest('[data-mood]');if(!b)return;filter=b.dataset.mood;get('loungeFilters').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));renderCards()};
- root.querySelector('.loungeQuickPicks').onclick=e=>{const b=e.target.closest('[data-quick]');if(!b)return;filter=b.dataset.quick;get('loungeFilters').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.mood===filter)));renderCards()};
+ function select(x,activate){const changed=!(current.type===x.type&&current.id===x.id&&current.name===x.name);current=x;get('loungeNowTitle').textContent=x.name;get('loungeNowTag').textContent=x.tag+' · '+(x.type==='album'?'Album':x.type==='playlist'?'Playlist':x.type);get('loungeNowBlurb').textContent=x.blurb||'';get('loungeOpen').href=link(x);get('loungeFeatureArt').style.backgroundImage=`url('${x.cover}')`;if(changed||!loaded){loaded=activate;renderPlayer()}saveState();renderCards()}
+ get('loungeFilters').onclick=e=>{const b=e.target.closest('[data-mood]');if(!b)return;filter=b.dataset.mood;q='';get('loungeSearch').value='';get('loungeFilters').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));renderCards()};
+ root.querySelector('.loungeQuickPicks').onclick=e=>{const b=e.target.closest('[data-quick]');if(!b)return;filter=b.dataset.quick;q='';get('loungeSearch').value='';get('loungeFilters').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.mood===filter)));renderCards()};
  get('loungeSearch').oninput=e=>{q=e.target.value.trim().toLowerCase();renderCards()};
  get('loungeSave').onclick=()=>{const i=saved.findIndex(x=>x.type===current.type&&x.id===current.id);if(i>=0)saved.splice(i,1);else if(saved.length<60)saved.push(current);else {toast('Your saved collection is full.');return}persist();saveState();renderCards()};
  get('loungeLinkForm').onsubmit=e=>{e.preventDefault();const x=parse(get('loungeLink').value);if(!x){get('loungeLinkStatus').textContent='Use a full open.spotify.com link or a Spotify URI.';return}select(resolve(x),true);get('loungeLinkStatus').textContent='Loaded in the listening desk above.';get('loungeNowTitle').scrollIntoView({block:'nearest',behavior:'auto'})};

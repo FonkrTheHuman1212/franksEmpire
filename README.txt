@@ -1,12 +1,21 @@
-FRANK’S EMPIRE V13.3 — THE GOLD EDITION
+FRANK’S EMPIRE V13.5 — FINAL EDITION
 
-Static fictional concept website. No build command; Netlify publish directory is .
-Install using the V13.2 updater. Demo checkout only; do not enter real personal or payment data.
+Static fictional concept website. Netlify publish directory is .; no build command. Install using the V13.2 updater, then check the Netlify deploy. Demo checkout only: never enter real personal or payment data.
 
-Music Lounge: Experiences > Music Lounge or direct Music Lounge navigation. Six curated Spotify playlists, filters, search within the collection, local favorites, and a public Spotify URL/URI loader. The actual Spotify embed is created only after selecting a collection or clicking Load Spotify player. No Spotify API key or paid service required. The page is for individual noncommercial listening, not public broadcast or business playback; normal Spotify account and playback restrictions apply. Spotify controls are not altered. No music is downloaded or bundled. Leaving the page or switching content ends the current embed session.
+Music Lounge: 10 verified Spotify destinations, including 8 playlists and 2 YOASOBI albums. Empire collection labels and decorative sleeve artwork are not official Spotify artwork. Exact Spotify content titles and curators are shown on every card. All favorites remain local to the browser; older saved links retain their original Spotify IDs. Spotify supplies its own playback controls, and availability depends on device, account and location. No API key, downloaded audio, subscription bypass or public broadcast functionality is included.
 
-Capri retired. The prior JavaScript and Netlify endpoint are replaced by inert stubs (HTTP 410 for the endpoint) because the updater copies files but does not remove old ones. Old avatar assets can be deleted from your repository if desired. If you previously configured Capri, remove OPENAI_API_KEY and CAPRI_TEST_CODE from Netlify and revoke the old key in the provider dashboard.
+Capri is retired: the legacy JavaScript and function remain inert so the updater can overwrite old versions. If an API key was previously configured, remove it from Netlify and revoke it with the provider.
 
-Gallery and Focus Sanctuary retained from V13.2; no artwork or timer changes this release.
+Gallery and Sanctuary retained from the previous version. Gallery still uses a finite loop and composited transitions, not fully hand-painted edge-to-edge art.
 
-V13.4: Redesigned Music Lounge with original cover art, J-pop/pop additions, and a more user-friendly layout.
+Verified Spotify sources (titles checked against Spotify pages; live audio playback is not included in local testing):
+Golden Hours — golden hour chill lofi 🌅 (Background Club): https://open.spotify.com/playlist/1SvH1lo09QnE5nfxJOtkgp
+Focus Mode — Deep Focus (Spotify): https://open.spotify.com/playlist/37i9dQZF1DWZeKCadgRdKQ
+Piano Noir — Peaceful Piano (Spotify): https://open.spotify.com/playlist/37i9dQZF1DX4sWSpwq3LiO
+Lo-Fi Velvet — lofi beats (Spotify): https://open.spotify.com/playlist/37i9dQZF1DWWQRwui0ExPn
+J-Pop Neon — J-Pop Hits (Spotify): https://open.spotify.com/playlist/37i9dQZF1DXdbRLJPSmnyq
+Pop Afterglow — Clean Pop Hits 2026 (KULTPOP!): https://open.spotify.com/playlist/31J0PX4kQOlImKIX3FT2nq
+Jazz After Dark — Evening Jazz (Spotify): https://open.spotify.com/playlist/37i9dQZF1DWXSyfX6gqDNp
+City Pop Cruise — City Pop '80s (Spotify): https://open.spotify.com/playlist/37i9dQZF1DWW28hvtiO3j9
+THE BOOK — THE BOOK (YOASOBI): https://open.spotify.com/album/1xhO0GSoezdPJcSuNe1ySv
+THE BOOK 3 — THE BOOK 3 (YOASOBI): https://open.spotify.com/album/68w73FF3dYC6C3RWdcV0Yl
